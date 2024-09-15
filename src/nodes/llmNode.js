@@ -26,8 +26,8 @@ export const LLMNode = (props) => {
       nodeLabel="LLM"
       handles={handles}
       renderContent={() => (
-        <div>
-          <span>This is an LLM Node.</span>
+        <div className="flex flex-col items-center justify-center text-sm text-gray-700 p-2 border border-gray-300 rounded-md shadow-sm">
+          <span className="font-semibold">This is an LLM Node.</span>
         </div>
       )}
     />

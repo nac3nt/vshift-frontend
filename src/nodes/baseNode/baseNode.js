@@ -12,7 +12,7 @@ export const BaseNode = ({ id, data, nodeLabel, handles, renderContent }) => {
   };
 
   return (
-    <div className="w-48 bg-white min-h-20 border border-gray-800 p-2 flex flex-col justify-between shadow-custom">
+    <div className="min-w-48 bg-white min-h-20 border border-gray-800 p-2 flex flex-col justify-between shadow-custom">
       <div className="font-bold text-center">{nodeLabel}</div>
       <div className="flex flex-col">
         {renderContent ? (
