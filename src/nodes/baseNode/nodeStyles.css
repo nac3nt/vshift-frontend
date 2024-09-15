@@ -1,0 +1,32 @@
+.node-container {
+  width: 200px;
+  min-height: 80px;
+  border: 1px solid black;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.node-header {
+  font-weight: bold;
+  text-align: center;
+}
+
+.node-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.node-label {
+  margin-bottom: 5px;
+}
+
+.node-input,
+.node-select {
+  width: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+}
