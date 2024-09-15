@@ -1,7 +1,6 @@
 // BaseNode.js
 import { Handle } from "reactflow";
 import { useState } from "react";
-import "./nodeStyles.css";
 
 export const BaseNode = ({ id, data, nodeLabel, handles, renderContent }) => {
   const [currName, setCurrName] = useState(
@@ -13,17 +12,17 @@ export const BaseNode = ({ id, data, nodeLabel, handles, renderContent }) => {
   };
 
   return (
-    <div className="node-container">
-      <div className="node-header">{nodeLabel}</div>
-      <div className="node-content">
+    <div className="w-48 bg-white min-h-20 border border-gray-800 p-2 flex flex-col justify-between shadow-custom">
+      <div className="font-bold text-center">{nodeLabel}</div>
+      <div className="flex flex-col">
         {renderContent ? (
           renderContent()
         ) : (
-          <label className="node-label">
+          <label className="mb-2">
             Name:
             <input
               type="text"
-              className="node-input"
+              className="w-full p-1 border rounded"
               value={currName}
               onChange={handleNameChange}
             />
