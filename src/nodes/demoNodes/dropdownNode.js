@@ -23,7 +23,6 @@ export const DropdownNode = (props) => {
       handles={handles}
       renderContent={() => (
         <div className="flex flex-col space-y-2">
-          <label className="text-sm">Choose an option:</label>
           <select
             value={selectedOption}
             className="w-full p-2 border rounded"

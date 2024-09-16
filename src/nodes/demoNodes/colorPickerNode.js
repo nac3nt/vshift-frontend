@@ -23,7 +23,6 @@ export const ColorPickerNode = (props) => {
       handles={handles}
       renderContent={() => (
         <div className="flex flex-col space-y-2">
-          <label className="text-sm">Select Color:</label>
           <input
             type="color"
             value={selectedColor}

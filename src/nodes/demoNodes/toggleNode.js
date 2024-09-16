@@ -21,7 +21,6 @@ export const ToggleNode = (props) => {
       handles={handles}
       renderContent={() => (
         <div className="flex flex-col space-y-2">
-          <label className="text-sm">Toggle:</label>
           <input
             type="checkbox"
             checked={isToggled}
