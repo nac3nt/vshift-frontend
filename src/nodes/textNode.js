@@ -60,7 +60,7 @@ export const TextNode = (props) => {
           Text:
           <textarea
             className="mt-1 block w-64 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            style={{ height: `${textAreaHeight}px` }} // Dynamically adjust height
+            style={{ height: `${textAreaHeight}px`, resize: "none" }}
             value={currText}
             onChange={(e) => setCurrText(e.target.value)}
           />
