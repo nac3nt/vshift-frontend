@@ -60,7 +60,7 @@ export const SubmitButton = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center space-y-4">
+    <div className="p-4 flex flex-col items-center justify-center space-y-4">
       <button
         type="submit"
         onClick={handleSubmit}
