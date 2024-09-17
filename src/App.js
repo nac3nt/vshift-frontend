@@ -6,7 +6,7 @@ import { SubmitButton } from "./submit";
 function App() {
   const [isToolbarVisible, setToolbarVisible] = useState(false);
   const toolbarRef = useRef(null);
-  const buttonRef = useRef(null); // Reference for the toggle button
+  const buttonRef = useRef(null);
 
   // Toggle toolbar visibility when the button is clicked
   const toggleToolbar = () => {
@@ -22,7 +22,7 @@ function App() {
         buttonRef.current &&
         !buttonRef.current.contains(event.target)
       ) {
-        setToolbarVisible(false); // Close the toolbar
+        setToolbarVisible(false);
       }
     }
 
@@ -60,12 +60,12 @@ function App() {
         </div>
       )}
 
-      {/* Pipeline UI that takes up remaining space */}
+      {/* Pipeline UI */}
       <div className="flex-grow z-10">
         <PipelineUI />
       </div>
 
-      {/* Submit button positioned in the center above Pipeline UI at the same z-index as the toggle button */}
+      {/* Submit button */}
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-30">
         <SubmitButton />
       </div>

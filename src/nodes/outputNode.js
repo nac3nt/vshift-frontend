@@ -7,7 +7,7 @@ export const OutputNode = (props) => {
   const [outputType, setOutputType] = useState(props.data.outputType || "Text");
 
   const handles = [
-    { type: "target", position: Position.Left, id: `${props.id}-value` },
+    { type: "target", position: Position.Left, id: `${props.id}-output-value` },
   ];
 
   return (

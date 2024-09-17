@@ -1,7 +1,7 @@
 import { useStore } from "./store";
 import { shallow } from "zustand/shallow";
 import { useState } from "react";
-import { Modal } from "./modal"; // Import the Modal component
+import { Modal } from "./modal";
 
 export const SubmitButton = () => {
   const { nodes, edges } = useStore(
@@ -12,10 +12,10 @@ export const SubmitButton = () => {
     shallow
   );
 
-  const [error, setError] = useState(null); // State to store error messages
-  const [isLoading, setIsLoading] = useState(false); // State to manage loading
-  const [result, setResult] = useState(null); // State to store result data
-  const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [result, setResult] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Function to close the modal and reset state
   const closeModal = () => {
@@ -43,19 +43,19 @@ export const SubmitButton = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setResult(data); // Store the result
-        setIsModalOpen(true); // Open the modal to show the result
+        setResult(data);
+        setIsModalOpen(true);
       } else {
-        setError("Error in response. Please try again."); // Set the error state
-        setIsModalOpen(true); // Open the modal to show the error
+        setError("Error in response. Please try again.");
+        setIsModalOpen(true);
         console.error("Error in response:", data);
       }
     } catch (error) {
-      setError("Network error. Please check your connection."); // Set the error state
-      setIsModalOpen(true); // Open the modal to show the error
+      setError("Network error. Please check your connection.");
+      setIsModalOpen(true);
       console.error("Error in submitting pipeline:", error);
     } finally {
-      setIsLoading(false); // Stop loading
+      setIsLoading(false);
     }
   };
 

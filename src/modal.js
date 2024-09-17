@@ -27,13 +27,10 @@ export const Modal = ({ isOpen, onClose, title, children }) => {
       aria-labelledby="modal-title"
     >
       <div className="bg-white p-8 rounded-lg shadow-lg relative">
-        {" "}
-        {/* Increased padding here */}
         <h2 id="modal-title" className="text-xl font-bold mb-4">
           {title}
         </h2>
         {children}
-        {/* OK Button centered */}
         <div className="flex justify-center mt-6">
           <button
             onClick={onClose}

@@ -12,7 +12,6 @@ export const BaseNode = ({ id, data, nodeLabel, handles, renderContent }) => {
 
   return (
     <div className="min-w-[250px] bg-white min-h-20 border border-gray-600 p-6 flex flex-col rounded-lg justify-between shadow-[0_3px_10px_rgb(0,0,0,0.1)]">
-      {/* Update to increase the gap by using mb-4 */}
       <div className="font-bold text-left mb-6">{nodeLabel}</div>
       <div className="flex flex-col">
         {renderContent ? (
@@ -36,9 +35,9 @@ export const BaseNode = ({ id, data, nodeLabel, handles, renderContent }) => {
           position={position}
           id={id}
           style={{
-            ...style, // Keep the existing style properties
-            width: 8, // Set the width to 10px
-            height: 8, // Set the height to 10px
+            ...style,
+            width: 8,
+            height: 8,
           }}
         />
       ))}
