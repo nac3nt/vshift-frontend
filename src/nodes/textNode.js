@@ -8,7 +8,7 @@ const extractVariables = (text) => {
   let match;
   const variables = [];
   while ((match = regex.exec(text)) !== null) {
-    variables.push(match[1]); // Extract the variable name
+    variables.push(match[1]);
   }
   return variables;
 };
@@ -55,6 +55,7 @@ export const TextNode = (props) => {
       {...props}
       nodeLabel="Text"
       handles={[...leftHandles, ...rightHandles]} // Combine left and right handles
+      style={{ height: `${dynamicHeight}px` }}
       renderContent={() => (
         <label className="block text-sm font-medium text-gray-700 mb-2">
           <textarea
