@@ -1,9 +1,9 @@
 import { useStore } from "./store";
 import { shallow } from "zustand/shallow";
 import { useState } from "react";
+import { Modal } from "./modal"; // Import the Modal component
 
 export const SubmitButton = () => {
-  // Get nodes and edges from the zustand store
   const { nodes, edges } = useStore(
     (state) => ({
       nodes: state.nodes,
@@ -15,6 +15,7 @@ export const SubmitButton = () => {
   const [error, setError] = useState(null); // State to store error messages
   const [isLoading, setIsLoading] = useState(false); // State to manage loading
   const [result, setResult] = useState(null); // State to store result data
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
 
   // Function to handle form submission
   const handleSubmit = async () => {
@@ -36,6 +37,7 @@ export const SubmitButton = () => {
 
       if (response.ok) {
         setResult(data); // Store the result
+        setIsModalOpen(true); // Open the modal to show the result
       } else {
         setError("Error in response. Please try again.");
         console.error("Error in response:", data);
@@ -61,15 +63,28 @@ export const SubmitButton = () => {
         {isLoading ? "Submitting..." : "Submit"}
       </button>
 
-      {result && (
-        <div className="mt-4 text-green-600 font-semibold">
-          <p>Number of Nodes: {result.num_nodes}</p>
-          <p>Number of Edges: {result.num_edges}</p>
-          <p>Is DAG: {result.is_dag ? "Yes" : "No"}</p>
-        </div>
-      )}
-
       {error && <div className="mt-4 text-red-600 font-semibold">{error}</div>}
+
+      {/* Modal for displaying the result */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Pipeline Information"
+      >
+        {result && (
+          <div>
+            <p>
+              <strong>Number of Nodes:</strong> {result.num_nodes}
+            </p>
+            <p>
+              <strong>Number of Edges:</strong> {result.num_edges}
+            </p>
+            <p>
+              <strong>Is DAG:</strong> {result.is_dag ? "Yes" : "No"}
+            </p>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 };
