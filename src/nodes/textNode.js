@@ -4,7 +4,7 @@ import { Position } from "reactflow";
 
 // Helper function to extract variables inside {{}} from the input text
 const extractVariables = (text) => {
-  const regex = /\{\{(\w+)\}\}/g;
+  const regex = /\{\{([a-zA-Z_$][a-zA-Z0-9_$]*)\}\}/g;
   let match;
   const variables = [];
   while ((match = regex.exec(text)) !== null) {
@@ -14,7 +14,7 @@ const extractVariables = (text) => {
 };
 
 export const TextNode = (props) => {
-  const [currText, setCurrText] = useState(props.data?.text || "{{input}}");
+  const [currText, setCurrText] = useState(props.data?.text || "");
   const [leftHandles, setLeftHandles] = useState([]);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export const TextNode = (props) => {
       return {
         type: "target",
         position: Position.Left,
-        id: `${props.id}-input-${variable}-${index}`, // Ensure each handle has a unique ID
+        id: `${props.id}-text-${variable}-input-${index}`, // Ensure each handle has a unique ID
         style: { top: `${topPosition}px`, position: "absolute" }, // Make sure position is absolute
       };
     });
