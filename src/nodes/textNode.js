@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { BaseNode } from "./baseNode/baseNode";
 import { Position } from "reactflow";
 
@@ -16,6 +16,7 @@ const extractVariables = (text) => {
 export const TextNode = (props) => {
   const [currText, setCurrText] = useState(props.data?.text || "");
   const [leftHandles, setLeftHandles] = useState([]);
+  const textAreaRef = useRef(null); // Ref for the textarea to auto adjust height
 
   useEffect(() => {
     // Extract variables from the input text
@@ -23,7 +24,6 @@ export const TextNode = (props) => {
 
     // Create handles for each detected variable with their positions
     const newHandles = variables.map((variable, index) => {
-      // Calculate dynamic top position based on index
       const handleCount = variables.length;
       const nodeHeight = 100 + handleCount * 20; // Node height with added handles
       const gap = 20; // Space between each handle
@@ -33,36 +33,52 @@ export const TextNode = (props) => {
       return {
         type: "target",
         position: Position.Left,
-        id: `${props.id}-text-${variable}-input-${index}`, // Ensure each handle has a unique ID
-        style: { top: `${topPosition}px`, position: "absolute" }, // Make sure position is absolute
+        id: `${props.id}-text-${variable}-input-${index}`,
+        style: { top: `${topPosition}px`, position: "absolute" }, // Ensure each handle has a unique ID
       };
     });
 
-    // Update state with new handles
     setLeftHandles(newHandles);
   }, [currText, props.id]);
+
+  // Function to handle dynamic resizing of textarea based on content
+  const handleTextareaChange = (e) => {
+    const textareaLineHeight = 20; // Height of each line
+    const linesCount = e.target.value.split("\n").length; // Count number of new lines
+    const newHeight = Math.max(
+      50 + linesCount * textareaLineHeight,
+      50 + leftHandles.length * 20
+    ); // Adjust height based on lines or handles
+
+    // Update the textarea height and the content
+    if (textAreaRef.current) {
+      textAreaRef.current.style.height = `${newHeight}px`;
+    }
+
+    setCurrText(e.target.value); // Update the content of the textarea
+  };
 
   const rightHandles = [
     { type: "source", position: Position.Right, id: `${props.id}-output` },
   ];
 
-  // Calculate dynamic height based on the number of left handles
-  const dynamicHeight = 100 + leftHandles.length * 20; // base height + extra per handle
-  const textAreaHeight = 50 + leftHandles.length * 20; // adjust text area height similarly
+  // Dynamically calculate the height of the node based on handles and lines in the textarea
+  const dynamicHeight = Math.max(100 + leftHandles.length * 20, 50);
 
   return (
     <BaseNode
       {...props}
       nodeLabel="Text"
-      handles={[...leftHandles, ...rightHandles]} // Combine left and right handles
-      style={{ height: `${dynamicHeight}px` }}
+      handles={[...leftHandles, ...rightHandles]}
+      style={{ height: `${dynamicHeight}px` }} // Dynamic node height based on handles
       renderContent={() => (
         <label className="block text-sm font-medium text-gray-700 mb-2">
           <textarea
+            ref={textAreaRef} // Reference to the textarea
             className="mt-1 block w-64 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            style={{ height: `${textAreaHeight}px`, resize: "none" }}
+            style={{ resize: "none" }} // Disable manual resize
             value={currText}
-            onChange={(e) => setCurrText(e.target.value)}
+            onChange={handleTextareaChange} // Handle change to adjust height
           />
         </label>
       )}
