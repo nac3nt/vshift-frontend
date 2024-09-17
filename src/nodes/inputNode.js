@@ -6,7 +6,7 @@ export const InputNode = (props) => {
   const [inputType, setInputType] = useState(props.data.inputType || "Text");
 
   const handles = [
-    { type: "source", position: Position.Right, id: `${props.id}-value` },
+    { type: "source", position: Position.Right, id: `${props.id}-input-value` },
   ];
 
   return (
