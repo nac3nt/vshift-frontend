@@ -16,7 +16,6 @@ function App() {
   // Detect click outside the toolbar or the button to close the toolbar
   useEffect(() => {
     function handleClickOutside(event) {
-      // Close the toolbar if click is outside the toolbar and not on the button
       if (
         toolbarRef.current &&
         !toolbarRef.current.contains(event.target) &&
@@ -55,7 +54,7 @@ function App() {
       {isToolbarVisible && (
         <div
           ref={toolbarRef} // Reference to the toolbar element
-          className="absolute top-16 left-4 z-20 w-[300px] p-4 bg-white shadow-lg border rounded-lg"
+          className="absolute top-20 left-4 z-20 w-[300px] p-4 bg-white shadow-lg border rounded-lg"
         >
           <PipelineToolbar />
         </div>
@@ -66,8 +65,8 @@ function App() {
         <PipelineUI />
       </div>
 
-      {/* Submit button at the bottom */}
-      <div className="flex-shrink-0">
+      {/* Submit button positioned in the center above Pipeline UI at the same z-index as the toggle button */}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-30">
         <SubmitButton />
       </div>
     </div>

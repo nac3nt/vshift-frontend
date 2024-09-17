@@ -1,7 +1,9 @@
+import { createPortal } from "react-dom";
+
 export const Modal = ({ isOpen, onClose, title, children }) => {
   if (!isOpen) return null;
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white p-6 rounded-lg shadow-lg relative">
         <button
@@ -13,6 +15,7 @@ export const Modal = ({ isOpen, onClose, title, children }) => {
         <h2 className="text-xl font-bold mb-4">{title}</h2>
         {children}
       </div>
-    </div>
+    </div>,
+    document.body // This renders the modal at the root level of the DOM
   );
 };
