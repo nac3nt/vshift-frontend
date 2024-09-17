@@ -17,6 +17,13 @@ export const SubmitButton = () => {
   const [result, setResult] = useState(null); // State to store result data
   const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
 
+  // Function to close the modal and reset state
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setError(null); // Clear error state
+    setResult(null); // Clear result state
+  };
+
   // Function to handle form submission
   const handleSubmit = async () => {
     setIsLoading(true); // Start loading
@@ -39,11 +46,13 @@ export const SubmitButton = () => {
         setResult(data); // Store the result
         setIsModalOpen(true); // Open the modal to show the result
       } else {
-        setError("Error in response. Please try again.");
+        setError("Error in response. Please try again."); // Set the error state
+        setIsModalOpen(true); // Open the modal to show the error
         console.error("Error in response:", data);
       }
     } catch (error) {
-      setError("Network error. Please check your connection.");
+      setError("Network error. Please check your connection."); // Set the error state
+      setIsModalOpen(true); // Open the modal to show the error
       console.error("Error in submitting pipeline:", error);
     } finally {
       setIsLoading(false); // Stop loading
@@ -63,26 +72,28 @@ export const SubmitButton = () => {
         {isLoading ? "Submitting..." : "Submit"}
       </button>
 
-      {error && <div className="mt-4 text-red-600 font-semibold">{error}</div>}
-
-      {/* Modal for displaying the result */}
+      {/* Modal for displaying the result or error */}
       <Modal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title="Pipeline Information"
+        onClose={closeModal}
+        title={error ? "Error" : "Pipeline Information"}
       >
-        {result && (
-          <div>
-            <p>
-              <strong>Number of Nodes:</strong> {result.num_nodes}
-            </p>
-            <p>
-              <strong>Number of Edges:</strong> {result.num_edges}
-            </p>
-            <p>
-              <strong>Is DAG:</strong> {result.is_dag ? "Yes" : "No"}
-            </p>
-          </div>
+        {error ? (
+          <div className="text-red-600 font-semibold">{error}</div>
+        ) : (
+          result && (
+            <div>
+              <p>
+                <strong>Number of Nodes:</strong> {result.num_nodes}
+              </p>
+              <p>
+                <strong>Number of Edges:</strong> {result.num_edges}
+              </p>
+              <p>
+                <strong>Is DAG:</strong> {result.is_dag ? "Yes" : "No"}
+              </p>
+            </div>
+          )
         )}
       </Modal>
     </div>
