@@ -33,8 +33,8 @@ export const TextNode = (props) => {
       return {
         type: "target",
         position: Position.Left,
-        id: `${props.id}-input-${variable}-${index}`,
-        style: { top: `${topPosition}px` }, // Apply calculated top position
+        id: `${props.id}-input-${variable}-${index}`, // Ensure each handle has a unique ID
+        style: { top: `${topPosition}px`, position: "absolute" }, // Make sure position is absolute
       };
     });
 
